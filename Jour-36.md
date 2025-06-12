@@ -77,7 +77,6 @@ En règle générale, la puissance d’une machine se donne en **MIPS (Million d
 
 ### 5. Types de datasets fréquents 
 
-| ------------------- | -------------------------------------------- | 
 | Type                | Utilisation                                  | 
 | ------------------- | -------------------------------------------- | 
 | `SYSOUT`            | Sortie imprimante                            | 
@@ -85,7 +84,7 @@ En règle générale, la puissance d’une machine se donne en **MIPS (Million d
 | `LOADLIB`           | Bibliothèque de programmes compilés          | 
 | `WORK`              | Fichiers temporaires                         | 
 | `VSAM`              | Accès direct indexé (bases de données)       | 
-| ------------------- | -------------------------------------------- | 
+
 
 ### 6. Outils associés à MVS 
 
@@ -178,6 +177,7 @@ Exemple :
     * Problèmes d’allocation, de syntaxe, etc.
 
 **Astuce** : Toujours lire attentivement le message retourné après une commande
+[Liste des ABEND](https://www.lacommunauteducobol.com/abend/)
 
 
 ### 6. Astuces pour bien utiliser TSO
@@ -292,5 +292,44 @@ Exemple :
 * Sa maîtrise permet d’être **autonome dans l’édition, la soumission et le débogage** des jobs.
 
 * C’est l’interface principale pour tous les travaux en COBOL/JCL.
+
+##  Pour aller plus `loin`
+
+[Les commandes de TSO/ISPF](https://www.lacommunauteducobol.com/les-commandes-de-tso-ispf/)
+
+### LES COMMANDES DE LIGNES
+
+| Commande      | Fonction                                  |
+| ------------- | ----------------------------------------- |
+| `I`           | Insertion d’une ligne                     |
+| `In`          | Insertion de n lignes                     |
+| `D`           | Suppression d’une ligne                   |
+| `Dn`          | Suppression de n lignes                   |
+| `DD`          | Suppression du bloc de lignes             |
+| `:`           | comprise entre les 2 commandes            |
+| `:`           |                                           |
+| `DD`          |                                           |
+| `R, Rn, RR…RR`| Répétition de lignes                      |
+| `C`           | Copie d’une ligne                         |
+| `+`           | +                                         |
+| `A ou B`      | après (After) un avant (Before) une ligne |
+| `Ou O`        | sur (Overide) une ligne existante         |
+| `Cn, CC…CC`   | Copie de plusieurs lignes                 |
+| `M,Mn, MM…MM` | Déplacement de lignes                     |
+| `+`           | +                                         |
+| `A ou B`      | après (After) un avant (Before) une ligne |
+| `Ou O`        | sur (Overide) une ligne existante         |
+| `)`           | Déplacement (décalage) horizontal de      |
+|               |  2 colonnes à droite                      |
+| `)n`          | Déplacement de n colonnes                 |
+| `))…))`       | Déplacement d’un bloc de lignes de 2      | 
+|               | colonnes                                  |
+| `))n…))`      | Déplacement d’un bloc de lignes de n      | 
+|               | colonnes                                  |
+| `(, (n,((…((` | Déplacement à gauche                      |
+| `COLS`        | Visualise une ligne indiquant le          | 
+|               | colonnage (échelle)                       |
+|               | Cette ligne s’efface grâce à la commande  | 
+|               | RESET                                     |
 
 ---
