@@ -78,7 +78,7 @@
 
 Exemple :
 
-    	```bash
+    	```
 			//MYSTEP EXEC PGM=COBTP01,TIME=2
     ```
     
