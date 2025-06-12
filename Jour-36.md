@@ -432,6 +432,7 @@ Exemple :
 
       *  Bonus : insère 5 lignes en haut du fichier
       
+      
 * [ ] Exercice 7.2 – Supprimer des lignes
 
 **Objectif** : Apprendre à utiliser D, Dn, DD…DD
@@ -441,6 +442,7 @@ Exemple :
    * Place deux commandes DD en début et fin d’un bloc → supprime tout
 
       *  Bonus : Expérimente avec D1, D2, D5 pour bien voir l’effet
+      
       
 * [ ] Exercice 7.3 – Répéter une ligne
 
@@ -452,6 +454,7 @@ Exemple :
 
       *  Bonus : Ajoute un commentaire à chaque ligne répétée pour les repérer
       
+      
 * [ ] Exercice 7.4 – Copier une ligne
 
 **Objectif** : Apprendre C, Cn, CC…CC + A/B/O
@@ -461,6 +464,7 @@ Exemple :
    * Teste la copie d’un bloc avec CC…CC + A
 
       *  Bonus : Essaye l’option O (overwrite)
+      
       
 * [ ] Exercice 7.5 – Déplacer des lignes
 
@@ -472,6 +476,7 @@ Exemple :
 
       *  Bonus : Essaye de déplacer vers le haut (avant) et vers le bas (après)
       
+      
 * [ ] Exercice 7.6 – Afficher les colonnes
 
 **Objectif** : Utiliser COLS + RESET
@@ -481,6 +486,7 @@ Exemple :
    * Tape RESET pour la masquer
 
       *  Bonus : Tape à nouveau COLS, modifie une colonne précise (ex: col 10-20)
+      
       
 * [ ] Exercice 7.7 – Décaler à droite
 
@@ -493,6 +499,7 @@ Exemple :
 
       *  Bonus : Combine ))n et CC pour voir le déplacement dans SDSF
       
+      
 * [ ] Exercice 7.8 – Décaler à gauche
 
 **Objectif** : ( (n (( ((n
@@ -504,6 +511,7 @@ Exemple :
 
       *  Bonus : Revenir en arrière avec ) (récupérer la mise en page)
       
+      
 * [ ] Exercice 7.9 – Combiner insertion + déplacement
 
 **Objectif** : I, M, A
@@ -513,6 +521,7 @@ Exemple :
    * Prends une ligne de texte et place M + A pour la mettre après l’entête
 
       *  Bonus : Déplace 3 lignes sous cette entête avec MM…MM
+      
       
 * [ ] Exercice 7.10 – Construire un tableau formaté
 
@@ -530,6 +539,7 @@ Exemple :
 
       *  Bonus : Répète une ligne du tableau pour ajouter un nouvel enregistrement
       
+      
 * [ ] Exercice 7.11 – Nettoyage structuré
 
 **Objectif** : Enchaîner D, C, R, M sur une même zone
@@ -540,6 +550,7 @@ Exemple :
    * Déplace ce mini-bloc avec MM/A
 
       *  Bonus : Fais une macro de test : créer → modifier → déplacer → supprimer
+      
       
 * [ ] Exercice 7.12 – Deviner la commande manquante
 
