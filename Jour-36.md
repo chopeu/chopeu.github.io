@@ -294,6 +294,8 @@ Exemple :
 
 * C’est l’interface principale pour tous les travaux en COBOL/JCL.
 
+---
+
 ##  Pour aller plus `loin`
 
 [Les commandes de TSO/ISPF](https://www.lacommunauteducobol.com/les-commandes-de-tso-ispf/)
@@ -333,28 +335,85 @@ Exemple :
 |               | Cette ligne s’efface grâce à la commande  | 
 |               | RESET                                     |
 
+---
 
 ### Exercices pratiques
 
-* [ ] Exercice 1 – Se connecter et lancer `ISPF` :
+* [ ] **Exercice 1 – Se connecter et lancer `ISPF`** :
 
-Objectif : Comprendre comment accéder à l’environnement ISPF via TSO.
+**Objectif** : Comprendre comment accéder à l’environnement ISPF via TSO.
 
    * Connecte-toi à TSO avec ton identifiant.
-   * Lance la commande ISPF.
+   * Lance la commande `ISPF`.
    * Explore les menus de 0 à 6 (lecture uniquement).
-   * Utilise la touche F3 pour revenir en arrière.
+   * Utilise la touche `F3` pour revenir en arrière.
 
-	* [ ] Bonus : Affiche ton PROFILE avec la commande TSO PROFILE.
-
-* [ ] Exercice 2 – Rechercher et afficher des datasets
-
-Objectif : Utiliser l’outil 3.4 pour naviguer dans les fichiers.
-
-   * Va dans ISPF option 3.4.
-   * Saisis ton préfixe (ex. : `USERID.*`) et liste les datasets existants.
-   * Ouvre un dataset en mode View.
-
-	* [ ] Bonus : Trier par date ou par nom.
+* [ ] **Bonus** : Affiche ton `PROFILE` avec la commande `TSO PROFILE`.
 
 ---
+
+* [ ] **Exercice 2 – Rechercher et afficher des datasets**
+
+**Objectif** : Utiliser l’outil 3.4 pour naviguer dans les fichiers.
+
+   * Va dans **ISPF option 3.4**.
+   * Saisis ton préfixe (ex. : `USERID.*`) et liste les datasets existants.
+   * Ouvre un dataset en mode **View**.
+
+* [ ] **Bonus** : Trier par date ou par nom.
+
+---
+
+* [ ] **Exercice 3 – Créer un dataset partitionné (PDS)**
+
+**Objectif** : Créer un PDS pour stocker du code source.
+
+   * Menu ISPF → `3.2` (Allocate Dataset)
+   * Nom : `USERID.SOURCE.COBOL`
+   * Type : PDS
+    LRECL=80, RECFM=FB, BLKSIZE=800, SPACE=(5,5)
+
+* [ ] **Bonus** : Crée aussi `USERID.JCL.LIB` pour y placer tes JCL.
+
+---
+
+* [ ] **Exercice 4 – Éditer un programme COBOL simple**
+
+**Objectif** : Éditer un membre source COBOL dans ton PDS.
+
+   * Menu `2` → Éditer `USERID.SOURCE.COBOL(HELLOCOB)`
+
+       `IDENTIFICATION DIVISION.
+       PROGRAM-ID. HELLOCOB.
+       PROCEDURE DIVISION.
+           DISPLAY 'BONJOUR MVS !'.
+           STOP RUN.`
+
+* [ ] **Bonus** : Ajoute un `ACCEPT` pour lire un nom.
+
+---
+
+* [ ] **Exercice 5 – Copier des fichiers entre datasets**
+
+**Objectif** : Utiliser ISPF 3.3 pour copier des membres.
+
+   * Menu `3.3`
+   * Source : `USERID.SOURCE.COBOL`
+   * Destination : `USERID.SOURCE.COPIE`
+   * Copie le membre `HELLOCOB`
+
+* [ ] **Bonus** : Copier un membre JCL vers un autre PDS.
+
+---
+
+* [ ] **Exercice 6 – Supprimer et renommer un dataset**
+
+**Objectif** : Manipuler des datasets dans ISPF 3.4.
+
+   * Supprime un dataset test avec `D` dans la liste 3.4
+   * Renomme un dataset avec `R` (ex. : `OLDNAME` → `NEWNAME`)
+
+* [ ] **Bonus** : Vérifier que le dataset renommé conserve ses membres.
+
+---
+
