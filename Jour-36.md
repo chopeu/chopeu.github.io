@@ -28,7 +28,7 @@
 
 ### 1. La puissance d’un système informatique
 
-Cette puissance d’un système informatique dépend de nombreux paramètres :
+La puissance d’un système informatique dépend de nombreux paramètres :
 *	Rapidité de calcul du processeur central
 *	Nombre de canaux
 *	Taille de la mémoire centrale
@@ -36,142 +36,261 @@ Cette puissance d’un système informatique dépend de nombreux paramètres :
 *	Type de système d’exploitation
 *	Réglage (optimisation) du système d’exploitation.
 
-En règle générale, la puissance d’une machine se donne en MIPS (Million d’Instructions Par Seconde).
+En règle générale, la puissance d’une machine se donne en **MIPS (Million d’Instructions Par Seconde)**.
 
 
-```bash
-psql --version
-```
 
-Si non installé :
-
-```bash
-sudo apt update
-sudo apt install postgresql postgresql-contrib
-```
-
-### 2. Démarrer PostgreSQL et se connecter
-
-```bash
-sudo service postgresql start
-sudo -u postgres psql
-```
-
----
-
-## Exercice : Création et interrogation d’une table `clients`
-
-### Étapes dans PostgreSQL (interface `psql`)
-
-```sql
--- 1. Créer une base de données (si besoin)
-CREATE DATABASE exercice_sql;
-\c exercice_sql  -- Se connecter à la base
-
--- 2. Créer une table clients
-CREATE TABLE clients (
-    id SERIAL PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    telephone VARCHAR(20)
-);
-
--- 3. Insérer quelques lignes
-INSERT INTO clients (nom, prenom, telephone)
-VALUES 
-    ('Durand', 'Sophie', '0612345678'),
-    ('Lemoine', 'Alex', '0623456789'),
-    ('Martin', 'Lucie', '0634567890');
-
--- 4. Lire toutes les données
-SELECT * FROM clients;
-
--- 5. Rechercher un client par ID (ex: ID = 2)
-SELECT * FROM clients WHERE id = 2;
-```
-
----
+### 2. Qu’est-ce que MVS ?
 
 
-Très bien. Voici une mise à jour de ton document avec :
+* MVS = Multiple Virtual Storage
 
-* Une clarification sur la différence entre **utilisateur** et **base de données**.
-* Quelques **commandes utiles** dans PostgreSQL (`\`).
-* Un point sur la **nomenclature SQL/PostgreSQL**.
-* Les **types de données** les plus courants.
+* Système d’exploitation développé par IBM dans les années 1970
 
----
+* Ancêtre direct de z/OS, encore utilisé dans les environnements COBOL actuels
 
-## Concepts complémentaires PostgreSQL
+* Permet l’exécution simultanée de nombreux jobs, avec gestion fine des ressources
 
-### Utilisateur PostgreSQL vs Base de données
 
-* **Utilisateur PostgreSQL** : Compte autorisé à se connecter au serveur PostgreSQL. Par défaut, il existe un utilisateur nommé `postgres`.
+### 3. Composants clés de MVS
 
-  * Chaque utilisateur peut avoir des permissions spécifiques sur les bases.
-  * Création :
+| Composant      | Rôle                                        |
+| -------------- | ------------------------------------------- |
+| **JES2/JES3**  | Gestion des jobs batch                      |
+| **TSO**        | Interface en ligne de commande              |
+| **ISPF**       | Interface utilisateur structurée            |
+| **Dataset**    | Fichier de données (source, résultat, etc.) |
+| **Catalogues** | Référencement des datasets                  |
 
-    ```bash
-    sudo -u postgres createuser nom_utilisateur
-    ```
 
-    Avec droits superutilisateur :
+### 4. Les fichiers MVS (Datasets)
+* Datasets = fichiers structurés
 
-    ```bash
-    sudo -u postgres createuser --superuser nom_utilisateur
-    ```
+* Deux grandes familles :
 
-* **Base de données** : Conteneur logique dans lequel sont stockées les tables, vues, fonctions, etc.
-  Chaque base appartient à un utilisateur (le "owner") et peut être utilisée par d'autres si les droits sont accordés.
+    * **Séquentiels (PS)** : lus ligne à ligne
 
-  * Création :
+    * **Partitionnés (PDS)** : équivalent des répertoires
 
-    ```bash
-    createdb nom_base
-    ```
+* Identifiés par leur **DSN (DataSet Name)**, souvent catalogués
+
+
+### 5. Types de datasets fréquents 
+
+| ------------------- | -------------------------------------------- | 
+| Type                | Utilisation                                  | 
+| ------------------- | -------------------------------------------- | 
+| `SYSOUT`            | Sortie imprimante                            | 
+| `SYSIN`             | Données entrées dans le JCL                  | 
+| `LOADLIB`           | Bibliothèque de programmes compilés          | 
+| `WORK`              | Fichiers temporaires                         | 
+| `VSAM`              | Accès direct indexé (bases de données)       | 
+| ------------------- | -------------------------------------------- | 
+
+### 6. Outils associés à MVS 
+
+* ISPF : Interface d’édition et gestion des fichiers
+
+* SDSF : Suivi des jobs batch
+
+* IDCAMS : Utilitaire pour la gestion des fichiers VSAM
+
+* IEFBR14 : Programme "vide" pour tester un JCL
+
+### 7. Évolution de MVS 
+
+* MVS ➜ OS/390 ➜ z/OS
+
+* Modernisation des interfaces (intégration TCP/IP, sécurité RACF…)
+
+* Compatible avec les anciens programmes COBOL/JCL
+
+### 8. À retenir 
+
+* MVS est la **colonne vertébrale** des environnements COBOL/JCL.
+
+* Il offre **stabilité, performance, multitraitement** et une architecture éprouvée.
+
+* Comprendre MVS, c’est maîtriser le **contexte d’exécution** de vos programmes.
 
 ---
 
-## Commandes utiles dans l’interface `psql`
 
-Ces commandes commencent par un antislash (`\`) et ne sont **pas** du SQL, ce sont des **méta-commandes** propres à `psql`.
+## Introduction à `TSO` – Time Sharing Option
 
-| Commande       | Description                              |
-| -------------- | ---------------------------------------- |
-| `\l`           | Liste toutes les bases de données        |
-| `\c nom_base`  | Se connecter à une base de données       |
-| `\dt`          | Liste les tables de la base actuelle     |
-| `\du`          | Liste les utilisateurs PostgreSQL        |
-| `\q`           | Quitter l'interface `psql`               |
-| `\d nom_table` | Décrit la structure d'une table          |
-| `\h`           | Aide sur les commandes SQL (`\h SELECT`) |
+### 1. Qu’est-ce que TSO ?
+
+* TSO = **Time Sharing Option**
+
+* Environnement de travail **interactif** en ligne de commande sur IBM z/OS
+
+* Permet à **plusieurs utilisateurs** de se connecter et travailler **simultanément**
+
+* Souvent utilisé avec **ISPF** pour une navigation plus conviviale
+
+
+### 2. Que permet de faire TSO ?
+
+* Soumettre des **jobs JCL**
+
+* Créer, éditer et gérer des **fichiers (datasets)**
+
+* Accéder à des **programmes utilitaires**
+
+* Exécuter des **commandes système (TSO/E)**
+
+
+### 3. Connexion à TSO
+
+* Généralement via un **émulateur 3270** (ex : IBM Personal Communications, x3270)
+
+* Saisie de **login** et **mot de passe**
+
+* Accès au menu ISPF via la commande `ISPF`
+
+* Sinon, on reste en mode TSO natif
+
+
+### 4. Exemples de commandes TSO
+
+| Commande TSO | Fonction                            |
+| ------------ | ----------------------------------- |
+| `SUBMIT`     | Soumettre un fichier JCL            |
+| `LISTCAT`    | Lister un dataset catalogué         |
+| `DELETE`     | Supprimer un dataset                |
+| `ALLOCATE`   | Créer un nouveau dataset            |
+| `RENAME`     | Renommer un fichier                 |
+| `SEND`       | Envoyer un message à un utilisateur |
+
+Exemple :
+
+`SUBMIT 'USER01.JCL.MAJSTOCK'`
+
+
+### 5. Messages système et erreurs
+
+* TSO affiche les messages issus de :
+
+    * JES (envoi/lecture de job)
+
+    * Retour de programmes (codes retour)
+
+    * Problèmes d’allocation, de syntaxe, etc.
+
+**Astuce** : Toujours lire attentivement le message retourné après une commande
+
+
+### 6. Astuces pour bien utiliser TSO
+
+* `ISPF` : bascule dans l’interface graphique
+
+* `=X` ou `LOGOFF` : quitter la session
+
+* `HELP` : documentation intégrée
+
+* `PROFILE` : voir ou modifier les paramètres utilisateur
+
+* `TSO %nom_programme` : exécuter un programme
+
+
+### 7. À retenir
+
+* TSO est l’interface de **base et incontournable** des mainframes IBM
+
+* Maîtriser TSO = savoir interagir efficacement avec le système
+
+* ISPF est souvent préféré pour l’édition, mais **TSO reste indispensable** pour les automatisations et la compréhension système
 
 ---
 
-## Nomenclature 
+##  Introduction à `ISPF` - Naviguer et travailler efficacement sur un système IBM `z/OS`
 
-* **Noms de tables** : souvent en minuscules, pluriels (`clients`, `commandes`).
-* **Noms de colonnes** : simples et explicites (`nom`, `prenom`, `date_naissance`).
-* **Snake\_case** utilisé de préférence (`date_creation`, `code_postal`).
-* Les noms **entre guillemets doubles** deviennent sensibles à la casse :
+### 1. Qu’est-ce que l’ISPF ?
 
-  ```sql
-  SELECT "Nom" FROM clients; -- Attention à la casse
-  ```
+* **ISPF (Interactive System Productivity Facility)** est une interface utilisateur en mode texte sur les systèmes IBM z/OS.
 
----
+* Elle permet d’interagir avec le système, d’éditer des fichiers, de soumettre des jobs, etc.
 
-## Types de données courants en PostgreSQL
+* Interface composée de **menus, panels et raccourcis clavier**.
 
-| Type           | Description                           | Exemple                           |
-| -------------- | ------------------------------------- | --------------------------------- |
-| `INTEGER`      | Entier                                | `42`                              |
-| `SERIAL`       | Entier auto-incrémenté (clé primaire) | `id SERIAL PRIMARY KEY`           |
-| `VARCHAR(n)`   | Chaîne de caractères (longueur max)   | `nom VARCHAR(50)`                 |
-| `TEXT`         | Chaîne de longueur illimitée          | `description TEXT`                |
-| `BOOLEAN`      | Vrai / Faux                           | `true`, `false`                   |
-| `DATE`         | Date (AAAA-MM-JJ)                     | `'2024-05-26'`                    |
-| `TIMESTAMP`    | Date + heure                          | `'2024-05-26 14:00:00'`           |
-| `NUMERIC(x,y)` | Nombre avec décimales                 | `prix NUMERIC(10,2)` => `1234.56` |
+### 2. Ce qu’on peut faire avec ISPF
+
+* Éditer des datasets (fichiers) source (COBOL, JCL…)
+
+* Parcourir les catalogues et organiser ses datasets
+
+* Soumettre et suivre des jobs
+
+* Gérer les compilations
+
+* Naviguer dans les logs d’exécution (SDSF)
+
+### 3. Accès et structure
+
+* On accède à l’ISPF via une **connexion TSO (Time Sharing Option)**.
+
+* ISPF est organisé en **menus numérotés** : on navigue par chiffre ou commande rapide.
+
+* L’écran principal est appelé **ISPF Primary Option Menu**.
+
+### 4. Naviguer dans ISPF
+
+* Saisie directe de **numéros de menu** ou de **commandes rapides** (ex: `2` pour Edit).
+
+* Utilisation de **PF keys (F3 pour sortir, F7/F8 pour naviguer)**.
+
+* Raccourcis utiles :
+
+    * `TSO` pour revenir au mode ligne
+
+    * `=x` pour sortir d’un menu
+
+### 5. Éditeur de fichier (ISPF Edit)
+
+* Mode texte, en lignes numérotées.
+
+* Commandes ligne (en début de ligne) : `I`, `D`, `C`, `R`, `M`, `A`, etc.
+
+* Commandes globales (haut de l’écran) : `CHANGE`, `FIND`, `SAVE`, `SUBMIT`
+
+### 6. Fonctions utiles ISPF
+
+* **ISPF 3.4** : Rechercher et lister les datasets
+
+* **ISPF 6** : Entrée de commandes TSO (ex : `SUBMIT`, `RENAME`, `DELETE`)
+
+* **SDSF** (souvent via `=SD` ou menu 5) : Voir les jobs, messages d’erreur, logs
+
+* **ISPF 3.3** : Copier des fichiers
+
+* **ISPF 3.2** : Allouer un nouveau dataset
+
+### 7. SDSF (Spool Display and Search Facility)
+
+* Permet de **suivre l’exécution des jobs** :
+
+    * `DA` : affichage des jobs
+
+    * `ST` : statut des jobs
+
+    * `S` : sélection d’un job
+
+* Analyse des retours (RC), messages, ABEND éventuels
+
+### 8. Astuces de navigation
+
+* `=3.4` : accès direct à l'explorateur de fichiers
+
+* `=6` puis `SUBMIT` : soumission d’un job en ligne de commande
+
+* `=SD;ST` : SDSF en mode statut des jobs
+
+### 9. À retenir
+
+* ISPF est un **outil indispensable** pour tout développeur mainframe.
+
+* Sa maîtrise permet d’être **autonome dans l’édition, la soumission et le débogage** des jobs.
+
+* C’est l’interface principale pour tous les travaux en COBOL/JCL.
 
 ---
