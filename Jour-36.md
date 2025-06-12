@@ -100,7 +100,7 @@ En règle générale, la puissance d’une machine se donne en **MIPS (Million d
 
 * MVS ➜ OS/390 ➜ z/OS
 
-* Modernisation des interfaces (intégration TCP/IP, sécurité RACF…)
+* Modernisation des interfaces (intégration TCP/IP, …)
 
 * Compatible avec les anciens programmes COBOL/JCL
 
@@ -177,6 +177,7 @@ Exemple :
     * Problèmes d’allocation, de syntaxe, etc.
 
 **Astuce** : Toujours lire attentivement le message retourné après une commande
+
 [Liste des ABEND](https://www.lacommunauteducobol.com/abend/)
 
 
@@ -331,5 +332,29 @@ Exemple :
 |               | colonnage (échelle)                       |
 |               | Cette ligne s’efface grâce à la commande  | 
 |               | RESET                                     |
+
+
+### Exercices pratiques
+
+* [ ] Exercice 1 – Se connecter et lancer `ISPF` :
+
+Objectif : Comprendre comment accéder à l’environnement ISPF via TSO.
+
+   * Connecte-toi à TSO avec ton identifiant.
+   * Lance la commande ISPF.
+   * Explore les menus de 0 à 6 (lecture uniquement).
+   * Utilise la touche F3 pour revenir en arrière.
+
+	* [ ] Bonus : Affiche ton PROFILE avec la commande TSO PROFILE.
+
+* [ ] Exercice 2 – Rechercher et afficher des datasets
+
+Objectif : Utiliser l’outil 3.4 pour naviguer dans les fichiers.
+
+   * Va dans ISPF option 3.4.
+   * Saisis ton préfixe (ex. : `USERID.*`) et liste les datasets existants.
+   * Ouvre un dataset en mode View.
+
+	* [ ] Bonus : Trier par date ou par nom.
 
 ---
