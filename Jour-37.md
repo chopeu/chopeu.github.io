@@ -78,7 +78,7 @@
 
 Exemple :
 
-    ```bash
+    	```bash
 			//MYSTEP EXEC PGM=COBTP01,TIME=2
     ```
     
@@ -106,7 +106,7 @@ Exemple :
 
 **Exemple :**
 
-    ```bash
+    	```bash
 			//MYJOB JOB '4923E02',MSGCLASS=T,MSGLEVEL=(1,1),TIME=(5,0)
     ```
 **Paramètres clés :**
