@@ -321,9 +321,9 @@ Permet d’**enchaîner plusieurs fichiers** dans une même DD :
 ### Exercice 9 – Concaténer plusieurs fichiers d’entrée
 **Objectif** : Lire plusieurs datasets dans le même `DD`.
 
-    Crée un `//INPFILE DD DSN=DATASET1,DISP=SHR`
+   * Crée un `//INPFILE DD DSN=DATASET1,DISP=SHR`
 
-    Ajoute :
+   * Ajoute :
 		```bash
 			//        DD DSN=DATASET2,DISP=SHR
 			//        DD DSN=DATASET3,DISP=SHR
@@ -333,7 +333,7 @@ Permet d’**enchaîner plusieurs fichiers** dans une même DD :
 ### Exercice 10 – Utiliser SYSIN avec fin personnalisée (DLM)
 **Objectif** : Lire des données JCL avec un délimiteur spécifique.
 
-    Carte :
+   * Carte :
 		```bash
 			//SYSIN DD DATA,DLM=$$
 			Ligne 1
