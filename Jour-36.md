@@ -383,11 +383,13 @@ Exemple :
 
    * Menu `2` → Éditer `USERID.SOURCE.COBOL(HELLOCOB)`
 
-       `IDENTIFICATION DIVISION.
+   		```bash
+       IDENTIFICATION DIVISION.
        PROGRAM-ID. HELLOCOB.
        PROCEDURE DIVISION.
            DISPLAY 'BONJOUR MVS !'.
-           STOP RUN.`
+           STOP RUN.
+      ```
 
 * [ ] **Bonus** : Ajoute un `ACCEPT` pour lire un nom.
 
@@ -518,6 +520,7 @@ Exemple :
 
    * Tape COLS
    * Crée un tableau structuré :
+
     | Nom       | Prénom    | Âge  |
     |-----------|-----------|------|
     | MARTIN    | Jean      | 34   |
