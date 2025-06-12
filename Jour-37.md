@@ -8,24 +8,6 @@
 
 ---
 
-## Définitions clés
-
-### Concepts fondamentaux
-
-* [ ] **SGBD (Système de Gestion de Base de Données)** : Logiciel permettant de stocker, manipuler et gérer des données. Exemple : PostgreSQL.
-* [ ] **Base de données** : Ensemble structuré d’informations, stockées de manière à pouvoir être consultées et modifiées facilement.
-* [ ] **Base de données relationnelle** : Base de données où les données sont organisées en **tables** (lignes + colonnes), avec des relations entre elles.
-* [ ] **Clé primaire (Primary Key)** : Champ unique qui identifie chaque ligne dans une table (ex : `id`).
-* [ ] **SQL (Structured Query Language)** : Langage permettant de manipuler les bases relationnelles (création de tables, insertion, mise à jour, requêtes, etc.).
-* [ ] **CRUD** : Opérations de base sur les données :
-
-  * Create : Créer des données
-  * Read   : Lire des données
-  * Update : Modifier des données
-  * Delete : Supprimer des données
-
----
-
 ## Objectifs
 
 * [ ] Comprendre le rôle du **JCL** dans un environnement **Mainframe MVS**.
@@ -95,6 +77,7 @@
      * 4. Commentaire
 
 Exemple :
+
     ```bash
 			//MYSTEP EXEC PGM=COBTP01,TIME=2
     ```
