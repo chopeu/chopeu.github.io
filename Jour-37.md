@@ -13,7 +13,6 @@
 * [ ] Comprendre le rôle du **JCL** dans un environnement **Mainframe MVS**.
 * [ ] Maîtriser les **principes de structure** d’un JOB (JOB/EXEC/DD).
 * [ ] Savoir **écrire, lire et modifier** des scripts JCL.
-* [ ] Être capable de **diagnostiquer les erreurs courantes** et les corriger.
 
 ---
 
@@ -238,7 +237,7 @@ DISP=(statut, fin normale, fin anormale)
 
 Le plus important et souvent le plus mal compris :
 
-			DISP=(statut, fin_normale, fin_anormale)
+	DISP=(statut, fin_normale, fin_anormale)
 
 | Élément          | Rôle                       | Exemples                                   |
 | ---------------- | -------------------------- | ------------------------------------------ |
@@ -249,16 +248,18 @@ Le plus important et souvent le plus mal compris :
 
 **Exemple complet :**
 
-			DISP=(NEW,CATLG,DELETE)
+	DISP=(NEW,CATLG,DELETE)
 
 → crée un fichier, le catalogue si OK, le supprime sinon.
 
 Le paramètre DISP (Disposition) est l’un des plus importants et sensibles dans une carte DD en JCL. Il permet de définir comment le système doit traiter un dataset avant, pendant et après l’exécution d’un job ou d’une étape.
 **DISP – Syntaxe complète**
 
-					DISP=(état, action_si_OK, action_si_erreur)
+	DISP=(état, action_si_OK, action_si_erreur)
 
 **Paramètres principaux de DISP**
+
+
 **1. État (Status) — 1er champ**
 
 Décrit **la relation du fichier avec le système avant l'exécution** de l'étape.
@@ -268,6 +269,7 @@ Décrit **la relation du fichier avec le système avant l'exécution** de l'éta
 | `OLD`      | Le fichier **existe** et doit être **verrouillé** (accès exclusif) | Attention à la contention           |
 | `SHR`      | Le fichier **existe** et peut être **partagé**                     | Lecture ou écriture en mode partagé |
 | `MOD`      | Le fichier **existe ou sera créé**, et on va **écrire à la fin**   | Très utilisé pour concaténation     |
+
 
 **2. Action si fin normale (Normal Disposition) — 2e champ**
 
@@ -292,21 +294,22 @@ Même chose, mais **si le job ou l’étape échoue** (erreur système ou RC≠0
 
 
 **Exemples courants**
+
 **1. Créer un fichier temporaire (et le supprimer en cas d’erreur)**
 
-		DISP=(NEW,CATLG,DELETE)
+	DISP=(NEW,CATLG,DELETE)
 
 **2. Lire un fichier existant, partagé avec d’autres jobs**
 
-		DISP=SHR
+	DISP=SHR
 
 **3. Lire un fichier existant en exclusivité (danger en production)**
 
-		DISP=OLD
+	DISP=OLD
 
 **4. Créer un fichier et le transmettre à l’étape suivante sans le cataloguer**
 
-		DISP=(NEW,PASS,DELETE)
+	DISP=(NEW,PASS,DELETE)
 
 **Rappels**
 
@@ -335,7 +338,7 @@ Même chose, mais **si le job ou l’étape échoue** (erreur système ou RC≠0
 
 Le DCB est un groupe de sous-paramètres décrivant la **structure des enregistrements** dans un dataset.
 
-		DCB=(RECFM=xx,LRECL=nnn,BLKSIZE=nnnn)    
+	DCB=(RECFM=xx,LRECL=nnn,BLKSIZE=nnnn)    
 
 **Liste des sous-paramètres `DCB` et leur description**
 
@@ -350,6 +353,7 @@ Le DCB est un groupe de sous-paramètres décrivant la **structure des enregistr
 | `MACRF=`      | Macro Record Format   | Mode d’accès aux fichiers (lecture, écriture...)    |
 
 **Détails des principaux sous-paramètres**
+
 **RECFM (Record Format)**
 
 Définit le **format des enregistrements** dans le fichier.
@@ -371,6 +375,7 @@ Définit le **format des enregistrements** dans le fichier.
    * `RECFM=VB` → Enregistrements variables, groupés
 
    * `RECFM=U` → Format indéfini (LOADLIB, SYSUT…)
+
 
 **LRECL (Logical Record Length)**
 
@@ -423,12 +428,12 @@ Définit le **format des enregistrements** dans le fichier.
    * Peu utilisés dans des jobs simples
    
 **Exemple complet de DCB**
-		```bash				
+
 				//FICOUT DD DSN=USERID.DATA.FICHIER1,
 				//       DISP=(NEW,CATLG,DELETE),
 				//       UNIT=SYSDA,SPACE=(CYL,(1,1)),
 				//       DCB=(RECFM=FB,LRECL=80,BLKSIZE=800)
-		```  
+
 
 **Astuces**
 
