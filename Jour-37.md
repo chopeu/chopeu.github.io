@@ -73,120 +73,293 @@
 
 ---
 
+### 4. STRUCTURE D’UN JOB
 
-## Exercice : Création et interrogation d’une table `clients`
+* Un JOB est structuré par **étapes**.
 
-### Étapes dans PostgreSQL (interface `psql`)
+* Chaque étape contient un **EXEC** et des **DD**.
 
-```sql
--- 1. Créer une base de données (si besoin)
-CREATE DATABASE exercice_sql;
-\c exercice_sql  -- Se connecter à la base
-
--- 2. Créer une table clients
-CREATE TABLE clients (
-    id SERIAL PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    telephone VARCHAR(20)
-);
-
--- 3. Insérer quelques lignes
-INSERT INTO clients (nom, prenom, telephone)
-VALUES 
-    ('Durand', 'Sophie', '0612345678'),
-    ('Lemoine', 'Alex', '0623456789'),
-    ('Martin', 'Lucie', '0634567890');
-
--- 4. Lire toutes les données
-SELECT * FROM clients;
-
--- 5. Rechercher un client par ID (ex: ID = 2)
-SELECT * FROM clients WHERE id = 2;
-```
+* La structure suit un **ordre fixe**.
 
 ---
 
+### 5. SYNTAXE GÉNÉRALE D’UNE CARTE
 
-Très bien. Voici une mise à jour de ton document avec :
+* Chaque carte commence par `//` en colonnes 1-2.
 
-* Une clarification sur la différence entre **utilisateur** et **base de données**.
-* Quelques **commandes utiles** dans PostgreSQL (`\`).
-* Un point sur la **nomenclature SQL/PostgreSQL**.
-* Les **types de données** les plus courants.
+* 4 zones distinctes :
+
+     * 1. Nom de la carte (`MYSTEP`)
+     * 2. Type (`EXEC`, `DD`, etc.)
+     * 3. Paramètres (`PGM=COBTP01`)
+     * 4. Commentaire
+
+Exemple :
+    ```bash
+			//MYSTEP EXEC PGM=COBTP01,TIME=2
+    ```
+    
+---
+
+### 6. PARAMÈTRES : POSITIONNELS VS MOTS-CLÉS    
+
+**Paramètres positionnels** :
+
+   * Leur ordre **détermine leur rôle**.
+   * Ex. : `TOTO,,TUTU` → A=TOTO, B=omise, C=TUTU
+
+**Paramètres à mot-clé** :
+
+   * On **nomme chaque paramètre**.
+   * Ex. : `PGM=COBTP01, TIME=(1,30)`
 
 ---
 
-## Concepts complémentaires PostgreSQL
+### 7. LA CARTE JOB    
 
-### Utilisateur PostgreSQL vs Base de données
+* Débute chaque JOB.
 
-* **Utilisateur PostgreSQL** : Compte autorisé à se connecter au serveur PostgreSQL. Par défaut, il existe un utilisateur nommé `postgres`.
+* Définit : nom du job, programmeur, classes, priorités, etc.
 
-  * Chaque utilisateur peut avoir des permissions spécifiques sur les bases.
-  * Création :
+**Exemple :**
 
     ```bash
-    sudo -u postgres createuser nom_utilisateur
+			//MYJOB JOB '4923E02',MSGCLASS=T,MSGLEVEL=(1,1),TIME=(5,0)
     ```
+**Paramètres clés :**
 
-    Avec droits superutilisateur :
+   * `CLASS`, `MSGCLASS`, `TIME`, `PRTY`, `NOTIFY`, `RESTART`, `TYPRUN`, `COND`
+    
+---
 
-    ```bash
-    sudo -u postgres createuser --superuser nom_utilisateur
-    ```
+### 8. LA CARTE EXEC  
 
-* **Base de données** : Conteneur logique dans lequel sont stockées les tables, vues, fonctions, etc.
-  Chaque base appartient à un utilisateur (le "owner") et peut être utilisée par d'autres si les droits sont accordés.
+   * Lance une **étape du job**
 
-  * Création :
+   * Paramètres principaux : `PGM=`, `TIME=`, `REGION=`, `PARM=`
 
-    ```bash
-    createdb nom_base
-    ```
+**Exemple :**
+		```bash
+			//STEP1 EXEC PGM=MONPROG,TIME=(1,30),REGION=250K
+		```
 
 ---
 
-## Commandes utiles dans l’interface `psql`
+### 9. LA CARTE DD : DÉFINITION DE FICHIERS  
 
-Ces commandes commencent par un antislash (`\`) et ne sont **pas** du SQL, ce sont des **méta-commandes** propres à `psql`.
+* DD = Data Definition
 
-| Commande       | Description                              |
-| -------------- | ---------------------------------------- |
-| `\l`           | Liste toutes les bases de données        |
-| `\c nom_base`  | Se connecter à une base de données       |
-| `\dt`          | Liste les tables de la base actuelle     |
-| `\du`          | Liste les utilisateurs PostgreSQL        |
-| `\q`           | Quitter l'interface `psql`               |
-| `\d nom_table` | Décrit la structure d'une table          |
-| `\h`           | Aide sur les commandes SQL (`\h SELECT`) |
+* Décrit les **fichiers utilisés par le programme**
+
+* Paramètres : `DSN=`, `DISP=`, `UNIT=`, `DCB=`, `SPACE=`
+
 
 ---
 
-## Nomenclature 
+### 10.  DISP : DISPOSITIONS DE FICHIERS  
 
-* **Noms de tables** : souvent en minuscules, pluriels (`clients`, `commandes`).
-* **Noms de colonnes** : simples et explicites (`nom`, `prenom`, `date_naissance`).
-* **Snake\_case** utilisé de préférence (`date_creation`, `code_postal`).
-* Les noms **entre guillemets doubles** deviennent sensibles à la casse :
+DISP=(statut, fin normale, fin anormale)
 
-  ```sql
-  SELECT "Nom" FROM clients; -- Attention à la casse
-  ```
+   * `NEW`, `OLD`, `SHR`, `MOD`
+   * `KEEP`, `DELETE`, `CATLG`, `PASS`
+
+**Exemples :**
+
+   * Création : `DISP=(NEW,CATLG,DELETE)`
+   * Partage : `DISP=(SHR)`
+
 
 ---
 
-## Types de données courants en PostgreSQL
+### 11.  DCB ET CARACTÉRISTIQUES  
 
-| Type           | Description                           | Exemple                           |
-| -------------- | ------------------------------------- | --------------------------------- |
-| `INTEGER`      | Entier                                | `42`                              |
-| `SERIAL`       | Entier auto-incrémenté (clé primaire) | `id SERIAL PRIMARY KEY`           |
-| `VARCHAR(n)`   | Chaîne de caractères (longueur max)   | `nom VARCHAR(50)`                 |
-| `TEXT`         | Chaîne de longueur illimitée          | `description TEXT`                |
-| `BOOLEAN`      | Vrai / Faux                           | `true`, `false`                   |
-| `DATE`         | Date (AAAA-MM-JJ)                     | `'2024-05-26'`                    |
-| `TIMESTAMP`    | Date + heure                          | `'2024-05-26 14:00:00'`           |
-| `NUMERIC(x,y)` | Nombre avec décimales                 | `prix NUMERIC(10,2)` => `1234.56` |
+* `DCB=(RECFM=FB,LRECL=80,BLKSIZE=800)`
+
+* Décrit :
+
+    * Format des enregistrements
+    * Longueur logique (LRECL)
+    * Taille des blocs (BLKSIZE)
+
+---
+
+### 12.  FICHIERS SPÉCIAUX
+
+* **SYSOUT** : sortie imprimante
+
+* **SYSIN** : données intégrées dans le JCL
+
+* **SYSUDUMP** : dump mémoire en cas d’erreur  
+
+---
+
+### 12.  JOBLIB / STEPLIB
+
+   * **JOBLIB** : bibliothèque de programmes valable pour tout le job
+
+   * **STEPLIB** : valable uniquement pour une étape
+
+**Exemple :**
+		```bash
+				//JOBLIB DD DSN=HNF.LOADLIB,DISP=SHR
+		```
+
+---
+
+### 12.  CONCATÉNATION DE FICHIERS
+
+Permet d’**enchaîner plusieurs fichiers** dans une même DD :
+
+		```bash
+			//FIC DD DSN=TEST1,DISP=SHR
+			//    DD DSN=TEST2,DISP=SHR
+			//    DD DSN=TEST3,DISP=SHR
+		```
+
+---
+
+### 13.  COMMENTAIRES DANS UN JCL
+
+   * Utiliser //* pour documenter
+
+   * Améliore la **compréhension future** du job
+
+   * Ex :
+		```bash
+			//* Etape de compilation COBOL
+		```
+
+---
+
+### 14.  COND ET CONDITIONS D’ABANDON
+
+   * Condition de non-exécution d’une étape
+
+   * Exemple :
+		```bash
+			COND=(4,LT)  → Si CR > 4, on exécute. Sinon on abandonne.
+		```
+   * Utiliser EVEN / ONLY pour les comportements avancés.
+
+---
+
+## Exercices pratiques en JCL – Progressifs et pédagogiques
+
+### Exercice 1 – Créer un job minimal
+**Objectif** : Écrire le JCL le plus simple possible.
+
+   * Crée un job nommé TESTJOB1.
+
+   * Exécute le programme IEFBR14 (programme vide).
+
+   * Ajoute MSGCLASS=X, CLASS=A, MSGLEVEL=(1,1).
+
+**Résultat attendu** : Un job s’exécute et termine sans erreur.
+
+### Exercice 2 – Définir un fichier temporaire
+**Objectif** : Apprendre à utiliser `DD` avec fichier temporaire.
+
+   * Crée un job avec une carte DD de type `DSN=&&MONFICHIER`.
+
+   * Alloue un espace sur disque : `SPACE=(TRK,(1,1))`.
+
+   * Ajoute `DISP=(NEW,PASS)` et `UNIT=SYSDA`.
+
+**Résultat attendu** : Le fichier est alloué puis libéré à la fin du job.
+ 
+### Exercice 3 – Créer un fichier permanent
+**Objectif** : Créer un dataset physique.
+
+   * Utilise `DSN=USERID.DATA.FICHIER1`.
+
+   * Ajoute `DISP=(NEW,CATLG,DELETE)`, `SPACE=(CYL,(1,1))`.
+
+   * Indique un `UNIT=SYSDA`, et un `DCB` (ex: `RECFM=FB,LRECL=80,BLKSIZE=800`).
+
+**Résultat attendu** : Un fichier réel, consultable via ISPF 3.4.
+
+### Exercice 4 – Impression avec SYSOUT
+**Objectif** : Utiliser `SYSOUT` pour imprimer un message.
+
+   * Crée une étape avec :
+		```bash
+				//IMPRIM DD SYSOUT=*,DCB=(RECFM=FBA,LRECL=133,BLKSIZE=1330)
+		```
+   * Ajoute une carte `SYSIN` contenant un message :
+		```bash
+				//SYSIN DD *
+				Ceci est un test d'impression JCL
+				/*
+		```
+**Résultat attendu** : Affichage dans SDSF, file d’attente imprimante.
+ 
+### Exercice 5 – Réutiliser un fichier avec référence arrière
+**Objectif** : Utiliser `DSN=*.STEP1.FICHIERTEMP`
+
+   * Étape 1 : créer un fichier temporaire.
+
+   * Étape 2 : réutilise ce fichier sans redéfinir `DSN`.
+
+**Résultat attendu** : Réutilisation fonctionnelle du fichier sans recodage.
+
+
+### Exercice 6 – Utiliser la carte EXEC avec paramètres 
+**Objectif** : Paramétrer une exécution via `PGM=`, `TIME=`, `REGION=`, `PARM=`
+
+   * Exécute un programme `PGM=COBTP01`.
+
+   * Ajoute un `TIME=(1,0)`, `REGION=512K`.
+
+   * Ajoute un `PARM='TEST01,PROD'`.
+
+**Résultat attendu** : Transmission de paramètres visibles dans le programme COBOL.
+
+
+### Exercice 7 – Conditionner l’exécution avec COND
+**Objectif** : Ne pas exécuter une étape si la précédente a retourné un code erreur.
+
+    Étape 1 : `PGM=IEFBR14`, retourne RC=0.
+
+    Étape 2 : `PGM=AUTREPROG`, avec `COND=(0,NE)`.
+
+**Résultat attendu** : Étape 2 s’exécute uniquement si RC ≠ 0 → donc **non exécutée ici**.
+
+ 
+### Exercice 8 – Utiliser une bibliothèque de programmes (JOBLIB)
+**Objectif** : Charger un programme à partir d’une bibliothèque spécifique.
+
+   * Ajoute une carte `//JOBLIB DD DSN=USERID.LOADLIB,DISP=SHR` avant la première `EXEC`.
+
+   * Exécute `PGM=HELLOCOB`.
+
+**Résultat attendu** : Le programme est trouvé et lancé depuis la LOADLIB.
+
+ 
+### Exercice 9 – Concaténer plusieurs fichiers d’entrée
+**Objectif** : Lire plusieurs datasets dans le même `DD`.
+
+    Crée un `//INPFILE DD DSN=DATASET1,DISP=SHR`
+
+    Ajoute :
+		```bash
+			//        DD DSN=DATASET2,DISP=SHR
+			//        DD DSN=DATASET3,DISP=SHR
+		```
+**Résultat attendu** : Le programme lit les trois fichiers comme un seul flux.
+ 
+### Exercice 10 – Utiliser SYSIN avec fin personnalisée (DLM)
+**Objectif** : Lire des données JCL avec un délimiteur spécifique.
+
+    Carte :
+		```bash
+			//SYSIN DD DATA,DLM=$$
+			Ligne 1
+			Ligne 2
+			$$
+		```
+**Résultat attendu** : Le programme lit les deux lignes puis s’arrête sur `$$`.
+
+ 
+
 
 ---
