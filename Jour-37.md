@@ -78,9 +78,9 @@
 
 Exemple :
 
-    	```
-			//MYSTEP EXEC PGM=COBTP01,TIME=2
-    ```
+    	
+	//MYSTEP EXEC PGM=COBTP01,TIME=2
+   
     
 ---
 
@@ -106,9 +106,9 @@ Exemple :
 
 **Exemple :**
 
-    	```bash
-			//MYJOB JOB '4923E02',MSGCLASS=T,MSGLEVEL=(1,1),TIME=(5,0)
-    ```
+    	
+	//MYJOB JOB '4923E02',MSGCLASS=T,MSGLEVEL=(1,1),TIME=(5,0)
+    
 **Paramètres clés :**
 
    * `CLASS`, `MSGCLASS`, `TIME`, `PRTY`, `NOTIFY`, `RESTART`, `TYPRUN`, `COND`
@@ -122,9 +122,9 @@ Exemple :
    * Paramètres principaux : `PGM=`, `TIME=`, `REGION=`, `PARM=`
 
 **Exemple :**
-		```bash
-			//STEP1 EXEC PGM=MONPROG,TIME=(1,30),REGION=250K
-		```
+		
+	//STEP1 EXEC PGM=MONPROG,TIME=(1,30),REGION=250K
+		
 
 ---
 
@@ -176,52 +176,52 @@ DISP=(statut, fin normale, fin anormale)
 
 ---
 
-### 12.  JOBLIB / STEPLIB
+### 13.  JOBLIB / STEPLIB
 
    * **JOBLIB** : bibliothèque de programmes valable pour tout le job
 
    * **STEPLIB** : valable uniquement pour une étape
 
 **Exemple :**
-		```bash
-				//JOBLIB DD DSN=HNF.LOADLIB,DISP=SHR
-		```
+		
+	//JOBLIB DD DSN=HNF.LOADLIB,DISP=SHR
+		
 
 ---
 
-### 12.  CONCATÉNATION DE FICHIERS
+### 14.  CONCATÉNATION DE FICHIERS
 
 Permet d’**enchaîner plusieurs fichiers** dans une même DD :
 
-		```bash
+
 			//FIC DD DSN=TEST1,DISP=SHR
 			//    DD DSN=TEST2,DISP=SHR
 			//    DD DSN=TEST3,DISP=SHR
-		```
+
 
 ---
 
-### 13.  COMMENTAIRES DANS UN JCL
+### 15.  COMMENTAIRES DANS UN JCL
 
    * Utiliser //* pour documenter
 
    * Améliore la **compréhension future** du job
 
    * Ex :
-		```bash
+		
 			//* Etape de compilation COBOL
-		```
+		
 
 ---
 
-### 14.  COND ET CONDITIONS D’ABANDON
+### 16.  COND ET CONDITIONS D’ABANDON
 
    * Condition de non-exécution d’une étape
 
    * Exemple :
-		```bash
+		
 			COND=(4,LT)  → Si CR > 4, on exécute. Sinon on abandonne.
-		```
+		
    * Utiliser EVEN / ONLY pour les comportements avancés.
 
 ---
