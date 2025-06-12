@@ -417,3 +417,133 @@ Exemple :
 
 ---
 
+* [ ] **Exercice 7 – ISPF – Commandes de ligne**
+
+* [ ] Exercice 7.1 – Insérer des lignes
+
+**Objectif** : Apprendre à utiliser les commandes I et In
+
+   * Ouvre un membre dans un PDS avec ISPF → Option 2
+   * À n’importe quelle ligne, tape I → Appuie sur Entrée
+   * Tape du texte sur la ligne insérée (ex: INSERTION 1)
+   * Ensuite, tape I3 → Ajoute 3 lignes à la suite
+
+      *  Bonus : insère 5 lignes en haut du fichier
+      
+* [ ] Exercice 7.2 – Supprimer des lignes
+
+**Objectif** : Apprendre à utiliser D, Dn, DD…DD
+
+   * Supprime une seule ligne avec D
+   * Supprime 3 lignes d’un coup avec D3
+   * Place deux commandes DD en début et fin d’un bloc → supprime tout
+
+      *  Bonus : Expérimente avec D1, D2, D5 pour bien voir l’effet
+      
+* [ ] Exercice 7.3 – Répéter une ligne
+
+**Objectif** : Utiliser R, Rn, RR…RR
+
+   * Tape R sur une ligne → observe la duplication
+   * Tape R2 → observe la répétition de cette ligne 2 fois
+   * Place RR sur 2 lignes + RR plus bas → répète un bloc
+
+      *  Bonus : Ajoute un commentaire à chaque ligne répétée pour les repérer
+      
+* [ ] Exercice 7.4 – Copier une ligne
+
+**Objectif** : Apprendre C, Cn, CC…CC + A/B/O
+
+   * Tape C à gauche d’une ligne → A sur une autre ligne → Entrée
+   * Utilise Cn pour copier plusieurs fois la même ligne
+   * Teste la copie d’un bloc avec CC…CC + A
+
+      *  Bonus : Essaye l’option O (overwrite)
+      
+* [ ] Exercice 7.5 – Déplacer des lignes
+
+**Objectif** : Utiliser M, Mn, MM…MM
+
+   * Déplace une ligne avec M + B ou A
+   * Déplace un bloc avec MM + MM puis A pour recoller
+   * Utilise Mn pour déplacer plusieurs fois une ligne
+
+      *  Bonus : Essaye de déplacer vers le haut (avant) et vers le bas (après)
+      
+* [ ] Exercice 7.6 – Afficher les colonnes
+
+**Objectif** : Utiliser COLS + RESET
+
+   * Tape COLS sur la ligne de commande
+   * Observe l’échelle de colonnes (1-72)
+   * Tape RESET pour la masquer
+
+      *  Bonus : Tape à nouveau COLS, modifie une colonne précise (ex: col 10-20)
+      
+* [ ] Exercice 7.7 – Décaler à droite
+
+**Objectif** : ) )n ))…)) ))n…))
+
+   * Tape ) devant une ligne → observe le décalage (2 colonnes)
+   * Tape )5 → observe le décalage de 5 colonnes
+   * Utilise )) + )) pour décaler un bloc
+   * Teste aussi ))3 + ))3 pour bloc + 3 colonnes
+
+      *  Bonus : Combine ))n et CC pour voir le déplacement dans SDSF
+      
+* [ ] Exercice 7.8 – Décaler à gauche
+
+**Objectif** : ( (n (( ((n
+
+   * Tape ( sur une ligne → décale de 2 colonnes vers la gauche
+   * Tape (6 → décale de 6 colonnes
+   * Utilise ((…(( pour un bloc
+   * Teste ((3 pour un bloc de 3 colonnes
+
+      *  Bonus : Revenir en arrière avec ) (récupérer la mise en page)
+      
+* [ ] Exercice 7.9 – Combiner insertion + déplacement
+
+**Objectif** : I, M, A
+
+   * Insère une ligne en haut de fichier avec I
+   * Écris "ENTÊTE"
+   * Prends une ligne de texte et place M + A pour la mettre après l’entête
+
+      *  Bonus : Déplace 3 lignes sous cette entête avec MM…MM
+      
+* [ ] Exercice 7.10 – Construire un tableau formaté
+
+**Objectif** : Travailler avec les colonnes et l’alignement
+
+   * Tape COLS
+   * Crée un tableau structuré :
+    | Nom       | Prénom    | Âge  |
+    |-----------|-----------|------|
+    | MARTIN    | Jean      | 34   |
+    | DURAND    | Claire    | 28   |
+
+   * Utilise les commandes de décalage horizontal pour aligner correctement les colonnes
+
+      *  Bonus : Répète une ligne du tableau pour ajouter un nouvel enregistrement
+      
+* [ ] Exercice 7.11 – Nettoyage structuré
+
+**Objectif** : Enchaîner D, C, R, M sur une même zone
+
+   * Supprime un bloc avec DD…DD
+   * Copie une ligne + colle avec C/A
+   * Répète une ligne avec R3
+   * Déplace ce mini-bloc avec MM/A
+
+      *  Bonus : Fais une macro de test : créer → modifier → déplacer → supprimer
+      
+* [ ] Exercice 7.12 – Deviner la commande manquante
+
+**Objectif** : Consolider les acquis
+
+   * Je veux copier 3 lignes consécutives et les insérer juste après la ligne 10.
+   * Quelle combinaison de commandes dois-je utiliser ?
+
+
+---
