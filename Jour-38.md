@@ -17,7 +17,7 @@
 ## Déroulement
 
 Cette journée est sous le signe de la manipulation et de la mise en pratique des informations reçues dans la présentation du JCL dans un environnement Mainframe.
-La journée va être découpée en objectif à réaliser (effectuer les exercices) pour faire une correction en groupe et ainsi effecter tous les exercices prévus
+La journée va être découpée en objectifs à réaliser (effectuer les exercices) pour faire une correction en groupe et ainsi effecter tous les exercices prévus
 
 ---
 
