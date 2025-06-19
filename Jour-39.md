@@ -36,11 +36,11 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 
 #### 1.2 Structure d’un JCL
 
-	```
+	
 	//STEP001 EXEC PGM=PROGNAME
 	//DD1     DD   DSN=FICHIER.ENTREE,DISP=SHR
 	//DD2     DD   SYSOUT=A
-	```
+	
 
 * **JOB** : début du traitement.
 
@@ -143,7 +143,7 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 
 ### 7. Exemple complet et commenté
 	
-	```
+	
 	//* Job de tri de fichier client
 	//TRIFICH  JOB (ACCT),'TRI CLIENT',CLASS=A,MSGCLASS=X
 	//* Étape de tri
@@ -157,7 +157,7 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 	//SYSOUT   DD SYSOUT=*
 	//SYSPRINT DD SYSOUT=*
 	//SYSUDUMP DD SYSOUT=*
-	```
+	
 
 
 ### 8. À éviter absolument
