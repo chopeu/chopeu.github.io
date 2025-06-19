@@ -86,8 +86,8 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 
 * `DISP=` : disposition (NOUVEAU, EXISTANT, etc.)
 
-        * `(NEW,CATLG,DELETE)` : créer, cataloguer, supprimer si RC ≠ 0
-
+        *  `(NEW,CATLG,DELETE)` : créer, cataloguer, supprimer si RC ≠ 0
+ 
 * `UNIT=SYSDA`, `SPACE=`, `DCB=`, etc.
 
 
@@ -330,3 +330,5 @@ Copie les membres `PGM1` et `PGM2` d’un PDS vers un autre. Très utilisé pour
 
 
 ---
+
+## Introduction à la gestion de projets
