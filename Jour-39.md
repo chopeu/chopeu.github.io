@@ -36,9 +36,11 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 
 #### 1.2 Structure d’un JCL
 
-//STEP001 EXEC PGM=PROGNAME
-//DD1     DD   DSN=FICHIER.ENTREE,DISP=SHR
-//DD2     DD   SYSOUT=A
+	```
+	//STEP001 EXEC PGM=PROGNAME
+	//DD1     DD   DSN=FICHIER.ENTREE,DISP=SHR
+	//DD2     DD   SYSOUT=A
+	```
 
 * **JOB** : début du traitement.
 
@@ -105,9 +107,10 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 * Évitez les suppressions brutales de fichiers en cas d’erreur.
 
 	* Exemple :
-
-//ETP1 EXEC PGM=PROGA
-//ETP2 EXEC PGM=PROGB,COND=(0,EQ,ETP1)
+	```
+	//ETP1 EXEC PGM=PROGA
+	//ETP2 EXEC PGM=PROGB,COND=(0,EQ,ETP1)
+	```
 
 ### 5. Gestion des fichiers
 
@@ -139,20 +142,22 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 
 
 ### 7. Exemple complet et commenté
-
-//* Job de tri de fichier client
-//TRIFICH  JOB (ACCT),'TRI CLIENT',CLASS=A,MSGCLASS=X
-//* Étape de tri
-//TRI      EXEC PGM=SORT
-//SORTIN   DD DSN=CLIENT.ENTREE,DISP=SHR
-//SORTOUT  DD DSN=CLIENT.TRI,DISP=(NEW,CATLG,DELETE),
-//             SPACE=(CYL,(10,5),RLSE),UNIT=SYSDA
-//SYSIN    DD *
-  SORT FIELDS=(1,10,CH,A)
-/*
-//SYSOUT   DD SYSOUT=*
-//SYSPRINT DD SYSOUT=*
-//SYSUDUMP DD SYSOUT=*
+	
+	```
+	//* Job de tri de fichier client
+	//TRIFICH  JOB (ACCT),'TRI CLIENT',CLASS=A,MSGCLASS=X
+	//* Étape de tri
+	//TRI      EXEC PGM=SORT
+	//SORTIN   DD DSN=CLIENT.ENTREE,DISP=SHR
+	//SORTOUT  DD DSN=CLIENT.TRI,DISP=(NEW,CATLG,DELETE),
+	//             SPACE=(CYL,(10,5),RLSE),UNIT=SYSDA
+	//SYSIN    DD *
+	  SORT FIELDS=(1,10,CH,A)
+	/*
+	//SYSOUT   DD SYSOUT=*
+	//SYSPRINT DD SYSOUT=*
+	//SYSUDUMP DD SYSOUT=*
+	```
 
 
 ### 8. À éviter absolument
@@ -184,12 +189,14 @@ Le plus important étant de faire manipuler le plus possible afin d'etre pret à
 Programme “neutre” (il ne fait rien) — utilisé pour **allouer ou supprimer un dataset** sans exécuter de traitement.
 
 * Exemple :
-
-//ALLOCJOB JOB (ACCT),'ALLOC DATASET'
-//STEP01   EXEC PGM=IEFBR14
-//DD1      DD  DSN=MON.FICHIER.TEST,
-//             DISP=(NEW,CATLG,DELETE),
-//             SPACE=(TRK,1),UNIT=SYSDA
+	
+	```
+	//ALLOCJOB JOB (ACCT),'ALLOC DATASET'
+	//STEP01   EXEC PGM=IEFBR14
+	//DD1      DD  DSN=MON.FICHIER.TEST,
+	//             DISP=(NEW,CATLG,DELETE),
+	//             SPACE=(TRK,1),UNIT=SYSDA
+	```
 
 * Explication :
 
@@ -202,13 +209,15 @@ Copie de fichiers séquentiels. Très utilisé pour **dupliquer, transférer ou 
 
 * Exemple :
 
-//COPYJOB JOB (ACCT),'COPY FILE'
-//STEP01   EXEC PGM=IEBGENER
-//SYSPRINT DD  SYSOUT=*
-//SYSUT1   DD  DSN=ENTREE.DONNEES,DISP=SHR
-//SYSUT2   DD  DSN=SORTIE.DONNEES,DISP=(NEW,CATLG,DELETE),
-//             SPACE=(TRK,(1,1)),UNIT=SYSDA
-//SYSIN    DD  DUMMY
+	```
+	//COPYJOB JOB (ACCT),'COPY FILE'
+	//STEP01   EXEC PGM=IEBGENER
+	//SYSPRINT DD  SYSOUT=*
+	//SYSUT1   DD  DSN=ENTREE.DONNEES,DISP=SHR
+	//SYSUT2   DD  DSN=SORTIE.DONNEES,DISP=(NEW,CATLG,DELETE),
+	//             SPACE=(TRK,(1,1)),UNIT=SYSDA
+	//SYSIN    DD  DUMMY
+	```
 
 * Explication :
 
@@ -221,15 +230,17 @@ Utilitaire très puissant pour **trier, filtrer, fusionner, éliminer des doublo
 
 * Exemple :
 
-//SORTJOB  JOB (ACCT),'TRI FICHIER'
-//STEP01   EXEC PGM=SORT
-//SORTIN   DD  DSN=CLIENTS.ENTREE,DISP=SHR
-//SORTOUT  DD  DSN=CLIENTS.TRI,DISP=(NEW,CATLG,DELETE),
-//             SPACE=(CYL,(10,5)),UNIT=SYSDA
-//SYSOUT   DD  SYSOUT=*
-//SYSIN    DD  *
-  SORT FIELDS=(1,10,CH,A)
-/*
+	```
+	//SORTJOB  JOB (ACCT),'TRI FICHIER'
+	//STEP01   EXEC PGM=SORT
+	//SORTIN   DD  DSN=CLIENTS.ENTREE,DISP=SHR
+	//SORTOUT  DD  DSN=CLIENTS.TRI,DISP=(NEW,CATLG,DELETE),
+	//             SPACE=(CYL,(10,5)),UNIT=SYSDA
+	//SYSOUT   DD  SYSOUT=*
+	//SYSIN    DD  *
+	  SORT FIELDS=(1,10,CH,A)
+	/*
+	```
 
 * Explication :
 
@@ -242,13 +253,14 @@ Liste le contenu d’un volume ou d’un PDS (Partitioned Dataset).
 
 * Exemple :
 
-//LISTJOB  JOB (ACCT),'LISTE PDS'
-//STEP01   EXEC PGM=IEHLIST
-//SYSPRINT DD  SYSOUT=*
-//SYSIN    DD  *
-  LISTDS DSNAME=MON.PDS.EXEMPLE, MEMBERS
-/*
-
+	```
+	//LISTJOB  JOB (ACCT),'LISTE PDS'
+	//STEP01   EXEC PGM=IEHLIST
+	//SYSPRINT DD  SYSOUT=*
+	//SYSIN    DD  *
+	  LISTDS DSNAME=MON.PDS.EXEMPLE, MEMBERS
+	/*
+	```
 
 * Explication :
 
@@ -261,19 +273,20 @@ Gestion des fichiers **VSAM** (définition, suppression, impression, etc.)
 
 * Exemple : Création d’un fichier KSDS
 
-//IDCAMS JOB (ACCT),'CREER VSAM'
-//STEP01 EXEC PGM=IDCAMS
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  DEFINE CLUSTER (NAME=MON.FICHIER.VSAM -
-    INDEXED KEYS(10,0) RECORDSIZE(80 80) -
-    TRACKS(5 1) CISZ(4096)) -
-    DATA(NAME=MON.FICHIER.VSAM.DATA) -
-    INDEX(NAME=MON.FICHIER.VSAM.INDEX)
-/*
+	```
+	//IDCAMS JOB (ACCT),'CREER VSAM'
+	//STEP01 EXEC PGM=IDCAMS
+	//SYSPRINT DD SYSOUT=*
+	//SYSIN    DD *
+	  DEFINE CLUSTER (NAME=MON.FICHIER.VSAM -
+	    INDEXED KEYS(10,0) RECORDSIZE(80 80) -
+	    TRACKS(5 1) CISZ(4096)) -
+	    DATA(NAME=MON.FICHIER.VSAM.DATA) -
+	    INDEX(NAME=MON.FICHIER.VSAM.INDEX)
+	/*
+	```
 
-
-💡 Explication :
+* Explication :
 
 Crée un fichier **VSAM de type KSDS** (`accès direct`) avec une clé de 10 caractères. IDCAMS est **incontournable** pour tout traitement VSAM en COBOL.
 
@@ -285,15 +298,17 @@ Copie ou sauvegarde de membres dans un PDS — très utile pour **sauvegarder de
 
 * Exemple :
 
-//COPYPDS JOB (ACCT),'COPY MEMBRES'
-//STEP01   EXEC PGM=IEBCOPY
-//SYSPRINT DD  SYSOUT=*
-//INPDS    DD  DSN=COBOL.SOURCE,DISP=SHR
-//OUTPDS   DD  DSN=COBOL.SOURCE.SAUVE,DISP=SHR
-//SYSIN    DD  *
-  COPY INDD=INPDS,OUTDD=OUTPDS
-  SELECT MEMBER=(PGM1,PGM2)
-/*
+	```
+	//COPYPDS JOB (ACCT),'COPY MEMBRES'
+	//STEP01   EXEC PGM=IEBCOPY
+	//SYSPRINT DD  SYSOUT=*
+	//INPDS    DD  DSN=COBOL.SOURCE,DISP=SHR
+	//OUTPDS   DD  DSN=COBOL.SOURCE.SAUVE,DISP=SHR
+	//SYSIN    DD  *
+	  COPY INDD=INPDS,OUTDD=OUTPDS
+	  SELECT MEMBER=(PGM1,PGM2)
+	/*
+	```
 
 * Explication :
 
