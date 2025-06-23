@@ -109,13 +109,13 @@ Imagine que tu demandes une place dans un entrepôt :
 
 * `UNIT=TAPE` → tu demandes une boîte à stocker sur une étagère spéciale à bandes.
 
-+--------------------+
-|        UNIT        |
-+--------------------+
-| SYSDA  → 🖴 Disque dur |
-| TAPE   → 📼 Bande     |
-| 3390   → 🖴 Type disque IBM |
-+--------------------+
+
+|        UNIT                  |
+|------------------------------|
+| SYSDA  → 🖴 Disque dur        |
+| TAPE   → 📼 Bande            |
+| 3390   → 🖴 Type disque IBM   |
+
 
 ---
 
