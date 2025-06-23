@@ -121,314 +121,191 @@ Imagine que tu demandes une place dans un entrepôt :
 
 ## La gestion de projet  
 
+### 2. Introduction à la gestion de projets
+Objectif de la séquence :
+Faire comprendre ce qu’est un projet, pourquoi on parle de gestion de projet et les enjeux associés.
 
+#### 2.1 Définitions clés
 
+* **Projet** : Ensemble d’activités temporaires visant à créer un produit, un service ou un résultat unique.
+➤ Exemple : Développer une application mobile, organiser une journée portes ouvertes.
 
+* **Gestion de projet** : Ensemble des méthodes, outils et compétences permettant de planifier, piloter et clôturer un projet avec succès.
 
+* **Cycle de vie d’un projet** : Ensemble des étapes successives de la vie d’un projet, de l’idée à la clôture.
 
-	
-	//STEP001 EXEC PGM=PROGNAME
-	//DD1     DD   DSN=FICHIER.ENTREE,DISP=SHR
-	//DD2     DD   SYSOUT=A
-	
 
-* **JOB** : début du traitement.
+#### 2.2 Objectifs d’un projet
 
-* **EXEC** : exécute un programme.
+Souvent résumés par le **triangle qualité – coût – délai** (ou triangle d’or du projet) :
 
-* **DD** : définit les fichiers utilisés.
+* **Qualité** : répond-t-on au besoin réel ?
 
----
+* **Coûts** : respecte-t-on le budget alloué ?
 
-### 2. Bonnes pratiques générales
+* **Délais** : livre-t-on dans les temps ?
 
-#### 2.1 Lisibilité & clarté
+Ces trois éléments sont interdépendants : modifier un angle impacte les autres.
 
-* Commentaires utiles avec `//*` pour expliquer le job ou les étapes.
 
-* Nommez les steps et datasets de façon explicite (`//ETPLIRE`, `//DDENTREE`, etc.)
+#### 2.3 Exemples concrets
 
-* Indentez et alignez les mots-clés pour faciliter la lecture.
+* **Créer un site web pour une PME locale** :
+➤ Livrables : maquette, site fonctionnel, notice d'utilisation.
+➤ Contraintes : budget serré, délais courts, image de marque soignée.
 
-#### 2.2 Organisation
+* **Organiser un événement interne (formation ou salon)** :
+➤ Étapes : réserver la salle, communiquer, gérer l’inscription, préparer le contenu, gérer les imprévus.
 
-* Placez **les étapes critiques au début** ou regroupez-les logiquement.
+#### 2.4 Le cycle de vie d’un projet
 
-* Utilisez une **nomenclature cohérente** (ex : JOBABC01, JOBABC02 pour une suite logique).
+Objectif de la séquence :
 
-* Commentez les zones complexes ou conditionnelles.
+Comprendre les grandes étapes d’un projet et savoir les appliquer à un exemple concret.
 
----
+Étapes du cycle de vie :
 
-### 3. Maîtriser les paramètres essentiels
+1. **Initiation**
 
-#### 3.1 EXEC : lancement d'un programme
+* Identifier le besoin, analyser la faisabilité, formaliser les objectifs.
 
-* `PGM=nom_du_programme`
+* Document clé : **cahier des charges simplifié** ou note d’intention.
 
-* `COND=` pour éviter l'exécution d'étapes selon le code retour
+2. **Planification**
 
-	* Exemple : `COND=(4,LT)` => skip si RC < 4
+* Découpage des tâches, estimation des durées, budget, ressources.
 
-#### 3.2 DD : gestion des fichiers
+* Outils : **diagramme de Gantt, planning, feuille de route**.
 
-* `DSN=` : nom du dataset
+3. **Exécution**
 
-* `DISP=` : disposition (NOUVEAU, EXISTANT, etc.)
+* Réalisation concrète des tâches par l’équipe projet.
 
-        *  `(NEW,CATLG,DELETE)` : créer, cataloguer, supprimer si RC ≠ 0
- 
-* `UNIT=SYSDA`, `SPACE=`, `DCB=`, etc.
+* Suivi régulier, adaptation, pilotage.
 
+4. **Suivi / Contrôle**
 
-#### 3.3 SYSOUT
+* S’assurer que tout se déroule comme prévu (qualité, coûts, délais).
 
-* Redirection vers la sortie système (ex: SYSOUT=A pour JES2)
+* Réunions de suivi, tableaux de bord, gestion des risques.
 
+5. **Clôture**
 
-### 4. Gestion des erreurs et retour-code
+* Livraison finale, validation client, bilan projet (retour d’expérience).
 
-#### Bonnes pratiques :
+* Archive des documents, apprentissages pour la suite.
 
-* Testez systématiquement **le code retour** (`RC`) des steps importants.
+#### 2.5 Rôles et responsabilités dans un projet
+Objectif de la séquence :
 
-* Utilisez `COND` pour éviter d’exécuter inutilement une étape si la précédente a échoué.
+Comprendre qui intervient dans un projet et qui est responsable de quoi.
 
-* Évitez les suppressions brutales de fichiers en cas d’erreur.
+Les rôles clés :
+**Chef de projet**
 
-	* Exemple :
-	```
-	//ETP1 EXEC PGM=PROGA
-	//ETP2 EXEC PGM=PROGB,COND=(0,EQ,ETP1)
-	```
+* Pilote le projet, planifie, coordonne, arbitre.
 
-### 5. Gestion des fichiers
+* Interface entre les parties prenantes et l’équipe.
 
-#### 5.1 DISP : dispositions à connaître
+**Équipe projet**
 
-* `(NEW,CATLG,DELETE)` → si tout va bien, fichier catalogué, sinon supprimé.
+* Réalise les tâches techniques ou fonctionnelles.
 
-* `(MOD,KEEP,KEEP)` → concaténation dans un fichier existant.
+* Exemple : développeurs, designers, testeurs.
 
-* `(SHR)` → partage du fichier (lecture uniquement).
+**Client**
 
-#### 5.2 SPACE
+* Commanditaire du projet, formule les besoins.
 
-* `SPACE=(TRK,(10,5),RLSE)` → 10 tracks initiaux, 5 supplémentaires, libération auto.
+* Valide les livrables.
 
-#### 5.3 DCB
+**Parties prenantes**
 
-* `DCB=(RECFM=FB,LRECL=80,BLKSIZE=800)` → format et structure du fichier
+* Toute personne impactée ou impliquée dans le projet : utilisateurs finaux, financeurs, direction, etc.
 
-### 6. Conventions et standards recommandés
 
-| Élément                  | Bonnes pratiques                                           |
-| ------------------------ | ---------------------------------------------------------- |
-| **Nom de job**           | Max 8 caractères, éviter les noms génériques               |
-| **Nom de step**          | Significatif, 8 caractères max                             |
-| **Commentaires**         | Commencez chaque job par un bloc de commentaire explicatif |
-| **Datasets temporaires** | Utilisez `&&TEMP` si fichier temporaire                    |
-| **Fichiers SYSIN**       | Centralisez les paramètres d’exécution                     |
+#### 2.6 Les outils de pilotage projet
+Objectif :
 
+Découvrir les outils concrets pour suivre l’avancement, piloter les tâches et visualiser le projet dans le temps.
 
-### 7. Exemple complet et commenté
-	
-	
-	//* Job de tri de fichier client
-	//TRIFICH  JOB (ACCT),'TRI CLIENT',CLASS=A,MSGCLASS=X
-	//* Étape de tri
-	//TRI      EXEC PGM=SORT
-	//SORTIN   DD DSN=CLIENT.ENTREE,DISP=SHR
-	//SORTOUT  DD DSN=CLIENT.TRI,DISP=(NEW,CATLG,DELETE),
-	//             SPACE=(CYL,(10,5),RLSE),UNIT=SYSDA
-	//SYSIN    DD *
-	  SORT FIELDS=(1,10,CH,A)
-	/*
-	//SYSOUT   DD SYSOUT=*
-	//SYSPRINT DD SYSOUT=*
-	//SYSUDUMP DD SYSOUT=*
-	
+**Outils de suivi** :
 
+* **Diagramme de Gantt** (outil visuel d’ordonnancement)
+    ➤ Exemple : GanttProject, TeamGantt, MS Project
 
-### 8. À éviter absolument
+* **Kanban** (organisation visuelle des tâches par colonnes)
+    ➤ Exemple : Trello, Jira, ClickUp
 
-* Écrire un JCL sans test de retour-code
-* Ne pas libérer l’espace (RLSE)
-* Utiliser des noms de steps ou fichiers ambigus
-* Laisser un fichier DISP=NEW sans SPACE défini
-* Ne pas documenter un traitement conditionnel
+* **Tableaux de bord** (indicateurs projet) : % d’avancement, retard, charges.
 
-### Conclusion
+**Indicateurs clés** :
 
-Écrire un bon JCL, c’est :
+* Avancement global
 
-* Être rigoureux (structure, commentaires, logique).
+* Dépassement des délais ou des coûts
 
-* Protéger les données (via DISP, COND…).
+* Répartition de la charge
 
-* Faciliter la maintenance et la relecture.
+* Risques identifiés et en cours
 
 
----
+#### 2.7 Méthodes agiles vs méthode traditionnelle
+Objectif :
 
-## sélection de programmes utilitaires en COBOL
+Comprendre la différence entre la gestion de projet classique (cycle en V) et les méthodes agiles, avec mise en pratique.
 
-### 1. **IEFBR14**
-* Fonction :
+* **Méthode traditionnelle (cycle en V)**
 
-Programme “neutre” (il ne fait rien) — utilisé pour **allouer ou supprimer un dataset** sans exécuter de traitement.
+* Approche séquentielle : on passe d’une étape à l’autre.
 
-* Exemple :
-	
-	```
-	//ALLOCJOB JOB (ACCT),'ALLOC DATASET'
-	//STEP01   EXEC PGM=IEFBR14
-	//DD1      DD  DSN=MON.FICHIER.TEST,
-	//             DISP=(NEW,CATLG,DELETE),
-	//             SPACE=(TRK,1),UNIT=SYSDA
-	```
+* Tout est défini au départ (coûts, délais, périmètre).
 
-* Explication :
+* Exemples : construction, projet bien cadré.
 
-Ce job **crée un fichier** (`DISP=NEW`) mais **aucun traitement n'est effectué**, car `IEFBR14` ne fait rien. Il est souvent utilisé pour **préparer des fichiers en amont** d’un traitement COBOL.
+* **Méthode agile**
 
-### 2. **IEBGENER**
-* Fonction :
+* Approche itérative, centrée sur la **valeur livrée rapidement**.
 
-Copie de fichiers séquentiels. Très utilisé pour **dupliquer, transférer ou modifier légèrement** un fichier.
+* Exemple principal : **Scrum**
 
-* Exemple :
+	* Rôles : Product Owner, Scrum Master, Équipe
 
-	```
-	//COPYJOB JOB (ACCT),'COPY FILE'
-	//STEP01   EXEC PGM=IEBGENER
-	//SYSPRINT DD  SYSOUT=*
-	//SYSUT1   DD  DSN=ENTREE.DONNEES,DISP=SHR
-	//SYSUT2   DD  DSN=SORTIE.DONNEES,DISP=(NEW,CATLG,DELETE),
-	//             SPACE=(TRK,(1,1)),UNIT=SYSDA
-	//SYSIN    DD  DUMMY
-	```
+        * Artefacts : backlog, sprints, revues, rétrospectives
 
-* Explication :
+Adaptée à l’informatique, aux projets évolutifs ou incertains.
 
-Ce job **copie les données** du fichier `ENTREE.DONNEES` vers un **nouveau fichier de sortie**. `SYSIN DD DUMMY` signifie qu’aucune instruction spécifique n’est fournie.
 
-### 3. **SORT (PGM=SORT ou ICETOOL)**
-* Fonction :
+#### 2.8 Les risques et les imprévus
+Objectif :
 
-Utilitaire très puissant pour **trier, filtrer, fusionner, éliminer des doublons,** etc.
+Savoir anticiper et gérer les risques dans un projet.
 
-* Exemple :
+* **Identifier les risques** :
 
-	```
-	//SORTJOB  JOB (ACCT),'TRI FICHIER'
-	//STEP01   EXEC PGM=SORT
-	//SORTIN   DD  DSN=CLIENTS.ENTREE,DISP=SHR
-	//SORTOUT  DD  DSN=CLIENTS.TRI,DISP=(NEW,CATLG,DELETE),
-	//             SPACE=(CYL,(10,5)),UNIT=SYSDA
-	//SYSOUT   DD  SYSOUT=*
-	//SYSIN    DD  *
-	  SORT FIELDS=(1,10,CH,A)
-	/*
-	```
+* Retards, problèmes techniques, absence d’un membre de l’équipe
 
-* Explication :
+* Demandes changeantes du client
 
-Tri d’un fichier sur les 10 premiers caractères de chaque ligne (ordre alphabétique croissant).
+* **Outils** :
 
-### 4. **IEHLIST**
-* Fonction :
+* **Matrice de risques** (probabilité / impact)
 
-Liste le contenu d’un volume ou d’un PDS (Partitioned Dataset).
+* **Plan de mitigation** : que faire si le risque se produit ?
 
-* Exemple :
+* **Journal des risques** à tenir à jour
 
-	```
-	//LISTJOB  JOB (ACCT),'LISTE PDS'
-	//STEP01   EXEC PGM=IEHLIST
-	//SYSPRINT DD  SYSOUT=*
-	//SYSIN    DD  *
-	  LISTDS DSNAME=MON.PDS.EXEMPLE, MEMBERS
-	/*
-	```
+#### 2.9 Clôture et retour d’expérience
+Objectif :
 
-* Explication :
+Savoir bien conclure un projet et tirer les leçons pour les suivants.
 
-Affiche **la liste des membres** d’un dataset partitionné (`PDS`). Utile pour savoir ce qu’il contient avant de lancer un programme COBOL.
+**Contenus** :
 
-### 5. **IDCAMS**
-* Fonction :
+* Livraison finale : validation du client
 
-Gestion des fichiers **VSAM** (définition, suppression, impression, etc.)
+* Archivage des documents
 
-* Exemple : Création d’un fichier KSDS
+* Bilan projet (ce qui a bien fonctionné / à améliorer)
 
-	```
-	//IDCAMS JOB (ACCT),'CREER VSAM'
-	//STEP01 EXEC PGM=IDCAMS
-	//SYSPRINT DD SYSOUT=*
-	//SYSIN    DD *
-	  DEFINE CLUSTER (NAME=MON.FICHIER.VSAM -
-	    INDEXED KEYS(10,0) RECORDSIZE(80 80) -
-	    TRACKS(5 1) CISZ(4096)) -
-	    DATA(NAME=MON.FICHIER.VSAM.DATA) -
-	    INDEX(NAME=MON.FICHIER.VSAM.INDEX)
-	/*
-	```
-
-* Explication :
-
-Crée un fichier **VSAM de type KSDS** (`accès direct`) avec une clé de 10 caractères. IDCAMS est **incontournable** pour tout traitement VSAM en COBOL.
-
-### 6. **IEBCOPY**
-
-* Fonction :
-
-Copie ou sauvegarde de membres dans un PDS — très utile pour **sauvegarder des programmes COBOL** ou **mettre à jour un PDS**.
-
-* Exemple :
-
-	```
-	//COPYPDS JOB (ACCT),'COPY MEMBRES'
-	//STEP01   EXEC PGM=IEBCOPY
-	//SYSPRINT DD  SYSOUT=*
-	//INPDS    DD  DSN=COBOL.SOURCE,DISP=SHR
-	//OUTPDS   DD  DSN=COBOL.SOURCE.SAUVE,DISP=SHR
-	//SYSIN    DD  *
-	  COPY INDD=INPDS,OUTDD=OUTPDS
-	  SELECT MEMBER=(PGM1,PGM2)
-	/*
-	```
-
-* Explication :
-
-Copie les membres `PGM1` et `PGM2` d’un PDS vers un autre. Très utilisé pour **faire des sauvegardes manuelles**.
-
----
-
-### Récapitulatif synthétique
-
-
-| Utilitaire   | Fonction principale             | Usage typique                     |
-| ------------ | ------------------------------- | --------------------------------- |
-| **IEFBR14**  | Création/suppression de fichier | Init/finalisation sans traitement |
-| **IEBGENER** | Copie de fichiers               | Dupliquer un fichier séquentiel   |
-| **SORT**     | Tri et filtrage                 | Trier un fichier clients          |
-| **IEHLIST**  | Lister contenu PDS              | Vérifier les membres COBOL        |
-| **IDCAMS**   | Gestion des fichiers VSAM       | Créer/supprimer un fichier KSDS   |
-| **IEBCOPY**  | Copier membres d’un PDS         | Sauvegarder des programmes COBOL  |
-
-
----
-
-## Introduction à la gestion de projets
-
-### Objectif pédagogique
-
-* Comprendre les fondamentaux de la gestion de projets.
-
-* Identifier les étapes d’un projet.
-
-* Utiliser des outils simples pour planifier, suivre et clôturer un projet.
-
-* Collaborer efficacement dans un projet (rôles, communication, risques).
+* REX : retour d’expérience pour capitaliser
