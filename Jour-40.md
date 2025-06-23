@@ -153,13 +153,13 @@ Ces trois éléments sont interdépendants : modifier un angle impacte les autre
 
 * **Créer un site web pour une PME locale** :
 
-➤ Livrables : maquette, site fonctionnel, notice d'utilisation.
+	➤ Livrables : maquette, site fonctionnel, notice d'utilisation.
 
-➤ Contraintes : budget serré, délais courts, image de marque soignée.
+	➤ Contraintes : budget serré, délais courts, image de marque soignée.
 
 * **Organiser un événement interne (formation ou salon)** :
 
-➤ Étapes : réserver la salle, communiquer, gérer l’inscription, préparer le contenu, gérer les imprévus.
+	➤ Étapes : réserver la salle, communiquer, gérer l’inscription, préparer le contenu, gérer les imprévus.
 
 #### 2.4 Le cycle de vie d’un projet
 
@@ -237,11 +237,11 @@ Découvrir les outils concrets pour suivre l’avancement, piloter les tâches e
 
 * **Diagramme de Gantt** (outil visuel d’ordonnancement)
 
-    	➤ Exemple : GanttProject, TeamGantt, MS Project
+	➤ Exemple : GanttProject, TeamGantt, MS Project
 
 * **Kanban** (organisation visuelle des tâches par colonnes)
 
-    ➤ Exemple : Trello, Jira, ClickUp
+	➤ Exemple : Trello, Jira, ClickUp
 
 * **Tableaux de bord** (indicateurs projet) : % d’avancement, retard, charges.
 
