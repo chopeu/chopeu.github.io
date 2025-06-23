@@ -129,7 +129,7 @@ Faire comprendre ce qu’est un projet, pourquoi on parle de gestion de projet e
 
 * **Projet** : Ensemble d’activités temporaires visant à créer un produit, un service ou un résultat unique.
 
-➤ Exemple : Développer une application mobile, organiser une journée portes ouvertes.
+	➤ Exemple : Développer une application mobile, organiser une journée portes ouvertes.
 
 * **Gestion de projet** : Ensemble des méthodes, outils et compétences permettant de planifier, piloter et clôturer un projet avec succès.
 
@@ -237,7 +237,7 @@ Découvrir les outils concrets pour suivre l’avancement, piloter les tâches e
 
 * **Diagramme de Gantt** (outil visuel d’ordonnancement)
 
-    ➤ Exemple : GanttProject, TeamGantt, MS Project
+    	➤ Exemple : GanttProject, TeamGantt, MS Project
 
 * **Kanban** (organisation visuelle des tâches par colonnes)
 
