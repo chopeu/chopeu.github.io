@@ -128,6 +128,7 @@ Faire comprendre ce qu’est un projet, pourquoi on parle de gestion de projet e
 #### 2.1 Définitions clés
 
 * **Projet** : Ensemble d’activités temporaires visant à créer un produit, un service ou un résultat unique.
+
 ➤ Exemple : Développer une application mobile, organiser une journée portes ouvertes.
 
 * **Gestion de projet** : Ensemble des méthodes, outils et compétences permettant de planifier, piloter et clôturer un projet avec succès.
@@ -151,56 +152,59 @@ Ces trois éléments sont interdépendants : modifier un angle impacte les autre
 #### 2.3 Exemples concrets
 
 * **Créer un site web pour une PME locale** :
+
 ➤ Livrables : maquette, site fonctionnel, notice d'utilisation.
+
 ➤ Contraintes : budget serré, délais courts, image de marque soignée.
 
 * **Organiser un événement interne (formation ou salon)** :
+
 ➤ Étapes : réserver la salle, communiquer, gérer l’inscription, préparer le contenu, gérer les imprévus.
 
 #### 2.4 Le cycle de vie d’un projet
 
 Objectif de la séquence :
-
 Comprendre les grandes étapes d’un projet et savoir les appliquer à un exemple concret.
 
 Étapes du cycle de vie :
 
 1. **Initiation**
 
-* Identifier le besoin, analyser la faisabilité, formaliser les objectifs.
+	* Identifier le besoin, analyser la faisabilité, formaliser les objectifs.
 
-* Document clé : **cahier des charges simplifié** ou note d’intention.
+	* Document clé : **cahier des charges simplifié** ou note d’intention.
 
 2. **Planification**
 
-* Découpage des tâches, estimation des durées, budget, ressources.
+	* Découpage des tâches, estimation des durées, budget, ressources.
 
-* Outils : **diagramme de Gantt, planning, feuille de route**.
+	* Outils : **diagramme de Gantt, planning, feuille de route**.
 
 3. **Exécution**
 
-* Réalisation concrète des tâches par l’équipe projet.
+	* Réalisation concrète des tâches par l’équipe projet.
 
-* Suivi régulier, adaptation, pilotage.
+	* Suivi régulier, adaptation, pilotage.
 
 4. **Suivi / Contrôle**
 
-* S’assurer que tout se déroule comme prévu (qualité, coûts, délais).
+	* S’assurer que tout se déroule comme prévu (qualité, coûts, délais).
 
-* Réunions de suivi, tableaux de bord, gestion des risques.
+	* Réunions de suivi, tableaux de bord, gestion des risques.
 
 5. **Clôture**
 
-* Livraison finale, validation client, bilan projet (retour d’expérience).
+	* Livraison finale, validation client, bilan projet (retour d’expérience).
 
-* Archive des documents, apprentissages pour la suite.
+	* Archive des documents, apprentissages pour la suite.
 
 #### 2.5 Rôles et responsabilités dans un projet
-Objectif de la séquence :
 
+Objectif de la séquence :
 Comprendre qui intervient dans un projet et qui est responsable de quoi.
 
 Les rôles clés :
+
 **Chef de projet**
 
 * Pilote le projet, planifie, coordonne, arbitre.
@@ -225,16 +229,18 @@ Les rôles clés :
 
 
 #### 2.6 Les outils de pilotage projet
-Objectif :
 
+Objectif :
 Découvrir les outils concrets pour suivre l’avancement, piloter les tâches et visualiser le projet dans le temps.
 
 **Outils de suivi** :
 
 * **Diagramme de Gantt** (outil visuel d’ordonnancement)
+
     ➤ Exemple : GanttProject, TeamGantt, MS Project
 
 * **Kanban** (organisation visuelle des tâches par colonnes)
+
     ➤ Exemple : Trello, Jira, ClickUp
 
 * **Tableaux de bord** (indicateurs projet) : % d’avancement, retard, charges.
@@ -251,53 +257,53 @@ Découvrir les outils concrets pour suivre l’avancement, piloter les tâches e
 
 
 #### 2.7 Méthodes agiles vs méthode traditionnelle
-Objectif :
 
+Objectif :
 Comprendre la différence entre la gestion de projet classique (cycle en V) et les méthodes agiles, avec mise en pratique.
 
 * **Méthode traditionnelle (cycle en V)**
 
-* Approche séquentielle : on passe d’une étape à l’autre.
+	* Approche séquentielle : on passe d’une étape à l’autre.
 
-* Tout est défini au départ (coûts, délais, périmètre).
+	* Tout est défini au départ (coûts, délais, périmètre).
 
-* Exemples : construction, projet bien cadré.
+	* Exemples : construction, projet bien cadré.
 
 * **Méthode agile**
 
-* Approche itérative, centrée sur la **valeur livrée rapidement**.
+	* Approche itérative, centrée sur la **valeur livrée rapidement**.
 
 * Exemple principal : **Scrum**
 
 	* Rôles : Product Owner, Scrum Master, Équipe
 
-        * Artefacts : backlog, sprints, revues, rétrospectives
+	* Artefacts : backlog, sprints, revues, rétrospectives
 
 Adaptée à l’informatique, aux projets évolutifs ou incertains.
 
 
 #### 2.8 Les risques et les imprévus
-Objectif :
 
+Objectif :
 Savoir anticiper et gérer les risques dans un projet.
 
 * **Identifier les risques** :
 
-* Retards, problèmes techniques, absence d’un membre de l’équipe
+	* Retards, problèmes techniques, absence d’un membre de l’équipe
 
-* Demandes changeantes du client
+	* Demandes changeantes du client
 
 * **Outils** :
 
-* **Matrice de risques** (probabilité / impact)
+	* **Matrice de risques** (probabilité / impact)
 
-* **Plan de mitigation** : que faire si le risque se produit ?
+	* **Plan de mitigation** : que faire si le risque se produit ?
 
-* **Journal des risques** à tenir à jour
+	* **Journal des risques** à tenir à jour
 
 #### 2.9 Clôture et retour d’expérience
-Objectif :
 
+Objectif :
 Savoir bien conclure un projet et tirer les leçons pour les suivants.
 
 **Contenus** :
